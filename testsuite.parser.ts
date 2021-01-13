@@ -8,8 +8,8 @@ import { traverseExpr, traverseStmt, traverse, parse } from '../CSE231_PA1/parse
 // should write enough unit tests for each function until you are confident
 // the parser works as expected. 
 export function testSuite_parser() {
-    describe('This is a test', () => {
-        it('parses a number in the beginning', () => {
+  describe('traverseExpr(c, s) function', () => {
+      it('parses a number in the beginning', () => {
           const source = "987";
           const cursor = parser.parse(source).cursor();
       

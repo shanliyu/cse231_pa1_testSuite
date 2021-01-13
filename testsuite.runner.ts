@@ -7,44 +7,65 @@ import { isFunctionExpression } from 'typescript';
 // We write end-to-end tests here to make sure the compiler works as expected.
 // You should write enough end-to-end tests until you are confident the compiler
 // runs as expected. 
-export function testSuite_runner(importObject:any) {
+export function testSuite_runner(importObject : any) {
   describe('run(source, config) function', () => {
     const config = { importObject };
-    
-    // We can test the behavior of the compiler in several ways:
-    // 1- we can test the return value of a program
-    // Note: since run is an async function, we use await to retrieve the 
-    // asynchronous return value. 
-    it('returns the right number', async () => {
-      const result = await run("987", config);
-      expect(result).to.equal(987);
+
+    it('Get the correct positive absolute value', async() => {
+      var result = await run("abs(3)", config);
+      expect(result).to.equal(3);
     });
 
-    // 2- we can test the behavior of the compiler by also looking at the log 
-    // resulting from running the program
-    it('prints something right', async() => {
-      var result = await run("print(1337)", config);
-      expect(config.importObject.output).to.equal("1337\n");
+    it('Get the correct negative absolute value', async() => {
+      var result = await run("abs(-3)", config);
+      expect(result).to.equal(3);
     });
 
-    // 3- we can also combine both type of assertions, or feel free to use any 
-    // other assertions provided by chai.
-    it('prints two numbers but returns last one', async () => {
-      var result = await run("print(987)", config);
-      expect(result).to.equal(987);
-      result = await run("print(123)", config);
-      expect(result).to.equal(123);
-      
-      expect(config.importObject.output).to.equal("987\n123\n");
+    it('Get the correct absolute value of an expression', async() => {
+      var result = await run("abs(-3*4)", config);
+      expect(result).to.equal(12);
     });
 
-    // Note: it is often helpful to write tests for a functionality before you
-    // implement it. You will make this test pass!
-    it('adds two numbers', async() => {
-      const result = await run("2 + 3", config);
-      expect(result).to.equal(5);
+    it('Max of two positive number', async() => {
+      var result = await run("max(1,2)", config);
+      expect(result).to.equal(2);
     });
 
-    // TODO: add additional tests here to ensure the compiler runs as expected
+    it('Max of one positive, one negative number', async() => {
+      var result = await run("max(1,-2)", config);
+      expect(result).to.equal(1);
+    });
+
+    it('Max of two negative number', async() => {
+      var result = await run("max(-3,-2)", config);
+      expect(result).to.equal(-2);
+    });
+
+    it('Min of two positive number', async() => {
+      var result = await run("min(3,2)", config);
+      expect(result).to.equal(2);
+    });
+
+    it('Min of one positive, one negative number', async() => {
+      var result = await run("min(-3,2)", config);
+      expect(result).to.equal(-3);
+    });
+
+    it('Min of two negative number', async() => {
+      var result = await run("min(-5,-2)", config);
+      expect(result).to.equal(-5);
+    });
+
+    it('Power of two values', async() => {
+      var result = await run("pow(2,3)", config);
+      expect(result).to.equal(8);
+    });
+
+    // This could differ for your implementation. 
+    it('Negative power', async() => {
+      var result = await run("pow(2,-3)", config);
+      expect(result).to.equal(0);
+    });
+
   });
 }
