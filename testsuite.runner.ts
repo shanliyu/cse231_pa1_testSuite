@@ -1,6 +1,5 @@
 import { run } from '../CSE231_PA1/runner';
 import { expect } from 'chai';
-import { importFuncs } from '../CSE231_PA1/importfunctions';
 import 'mocha';
 import { isFunctionExpression } from 'typescript';
   
