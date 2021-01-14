@@ -31,7 +31,7 @@ Import the test suite by adding this line at the top:
 import { testSuite_parser} from '../../cse231_pa1_testSuite/testsuite.parser';
 ```
 
-At the bottom, add  `testSuite_parser();`
+At the bottom, add  `testSuite_parser(parser);`
 
 ## Contributing to this test suite
 If you would like to contribute, when you pushed to your own fork, on the page of your forked repo, click on `Pull Request` next to `Compare`. Then select the branch you would like to merge to the upstream's main branch. 

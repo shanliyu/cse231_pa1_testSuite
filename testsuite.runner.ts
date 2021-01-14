@@ -1,12 +1,9 @@
 import { run } from '../CSE231_PA1/runner';
-import { expect } from 'chai';
-import 'mocha';
-import { isFunctionExpression } from 'typescript';
   
 // We write end-to-end tests here to make sure the compiler works as expected.
 // You should write enough end-to-end tests until you are confident the compiler
 // runs as expected. 
-export function testSuite_runner(importObject : any) {
+export function testSuite_runner(importObject : any, expect: any) {
   describe('run(source, config) function', () => {
     const config = { importObject };
 
@@ -65,6 +62,36 @@ export function testSuite_runner(importObject : any) {
       var result = await run("pow(2,-3)", config);
       expect(result).to.equal(0);
     });
+
+    it('Arith op of builtin2', async() => {
+      var result = await run("3*max(-3,-2)", config);
+      expect(result).to.equal(-6);
+    });
+
+    it('Arith op of builtin2 of builtin1', async() => {
+      var result = await run("abs(3*max(-3,-2))", config);
+      expect(result).to.equal(6);
+    });
+    it('Arith op of builtin2 of builtin1', async() => {
+      var result = await run("3*max(-3,-2)*min(5,3)", config);
+      expect(result).to.equal(-18);
+    });
+    it('Assignment of Arith op of builtin2', async() => {
+      var result = await run("x=3*max(-3,-2)*min(5,3)\nx", config);
+      expect(result).to.equal(-18);
+    });
+
+    it('Assignment of Arith op of builtin2 of builtin1', async() => {
+      var result = await run("x=2*max(-2,-3)\nx", config);
+      expect(result).to.equal(-4);
+    });
+
+
+    it('nested builtin1 and builtin2 and arithmetic op with assignment', async() => {
+      var result = await run("x=abs(min(-2,abs(min(-4,min(-8,-1)))))\ny=x+abs(5)\ny", config);
+      expect(result).to.equal(7);
+    });
+
 
   });
 }
