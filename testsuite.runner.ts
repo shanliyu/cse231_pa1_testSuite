@@ -88,11 +88,14 @@ export function testSuite_runner(importObject : any, expect: any) {
     });
 
 
-    it('nested builtin1 and builtin2 and arithmetic op with assignment', async() => {
+    it('nested builtin1 and builtin2 and arithmetic op with assignment 1', async() => {
       var result = await run("x=abs(min(-2,abs(min(-4,min(-8,-1)))))\ny=x+abs(5)\ny", config);
       expect(result).to.equal(7);
     });
 
-
+    it('nested builtin1 and builtin2 and arithmetic op with assignment 2', async() => {
+      var result = await run("x=2*max(-2,-3)\ny=abs(x)+max(min(3,1)+3,3)\ny=min(100,max(y,1))\ny", config);
+      expect(result).to.equal(8);
+    });
   });
 }
